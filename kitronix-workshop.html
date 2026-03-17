@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Kitronix - Product Gallery & Workshop</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,900&family=Barlow:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="styles.css" rel="stylesheet"/>
+    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('kitronix-theme') || 'light');</script>
+
+    <style>
+    /* ── REFERENCE STYLES (scoped to workshop page) ── */
+    :root {
+      --y:#F5C400;--yd:#C89A00;--ylight:#FFFBE6;
+      --bk:#0F0F0F;--bk2:#1a1a1a;
+      --wh:#FFFFFF;--off:#FAFAF7;--light:#F5F4EF;--light2:#EEEDE8;
+      --ref-text:#1A1A1A;--text2:#4A4A4A;--muted:#888;--border:#E2E0D8;
+    }
+
+    /* Section topbars */
+    .sec-topbar{background:var(--bk);padding:11px 44px;display:flex;align-items:center;justify-content:space-between}
+    .sec-topbar-y{background:var(--y);padding:11px 44px;display:flex;align-items:center;justify-content:space-between}
+    .stb-title{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:900;letter-spacing:2px;text-transform:uppercase}
+    .stb-title.light{color:var(--wh)}
+    .stb-title.dark{color:var(--bk)}
+    .stb-right{font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:3px}
+    .stb-right.light{color:#555}
+    .stb-right.dark{color:rgba(0,0,0,.4)}
+
+    .ey{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--y);margin-bottom:8px;display:flex;align-items:center;gap:8px;text-transform:uppercase}
+    .ey::before{content:'';width:16px;height:2px;background:var(--y);display:block}
+    .ey.dark{color:var(--yd)}
+    .ey.dark::before{background:var(--yd)}
+
+    .ref-sec-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(36px,5.5vw,54px);font-weight:900;text-transform:uppercase;line-height:.9;margin-bottom:10px}
+    .ref-sec-title span{color:var(--y);font-style:italic}
+
+    /* ── TIER CARDS ── */
+    .tiers-section{background:var(--off)}
+    .tiers-inner{padding:40px 44px;display:flex;flex-direction:column;gap:14px}
+
+    .tier-card{border-radius:4px;overflow:hidden;border:1px solid var(--border)}
+    .tier-head{padding:14px 20px;display:flex;align-items:center;justify-content:space-between;background:var(--bk)}
+    .tier-head.t3h{border-top:3px solid var(--y)}
+    .th-num{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--y);margin-bottom:3px}
+    .th-name{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:var(--wh);text-transform:uppercase;letter-spacing:1px;line-height:1}
+    .th-sub{font-size:10px;color:#777;margin-top:4px;line-height:1.4}
+    .th-price{text-align:right;flex-shrink:0;margin-left:20px}
+    .th-price .amount{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:900;color:var(--y);line-height:1}
+    .th-price .gst{font-family:'Share Tech Mono',monospace;font-size:8px;color:#666;display:block;margin-top:2px}
+
+    .tier-body{background:var(--off);padding:14px 20px;display:grid;grid-template-columns:1fr 1fr;gap:2px 20px}
+    .tier-body.t3b{grid-template-columns:1fr 1fr 1fr}
+    .ti{display:flex;align-items:flex-start;gap:7px;padding:4px 0}
+    .ti-arrow{color:var(--yd);font-size:11px;flex-shrink:0;font-weight:700;margin-top:2px}
+    .ti-text{font-size:10.5px;color:var(--text2);line-height:1.4}
+
+    .tier-foot{background:var(--light);padding:10px 20px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-top:1px solid var(--border)}
+    .tf-label{font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--yd);text-transform:uppercase;flex-shrink:0}
+    .tf-chip{background:var(--bk);color:var(--y);padding:4px 10px;border-radius:2px;font-size:9px;font-weight:700;letter-spacing:1px;font-family:'Barlow Condensed',sans-serif;white-space:nowrap}
+    .tf-ideal{font-size:9.5px;color:var(--muted);margin-left:auto;font-style:italic}
+
+    /* ── HARDWARE ── */
+    .hw-section{background:var(--bk);color:var(--wh)}
+    .hw-inner{padding:28px 44px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+
+    .hw-hero{padding:0;position:relative}
+    .hw-hero::after{content:'KITE H7';position:absolute;right:-8px;top:-4px;font-family:'Barlow Condensed',sans-serif;font-size:90px;font-weight:900;color:rgba(255,255,255,.025);pointer-events:none;white-space:nowrap;letter-spacing:-2px;z-index:0}
+    .hw-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(36px,5vw,52px);font-weight:900;text-transform:uppercase;line-height:.9;margin-bottom:10px;position:relative;z-index:1}
+    .hw-title span{color:var(--y);font-style:italic}
+    .hw-desc{font-size:11.5px;line-height:1.75;color:#888;margin-bottom:20px;position:relative;z-index:1}
+    .hw-desc em{color:var(--y);font-style:normal;font-weight:600}
+
+    .spec-table{width:100%;border-collapse:collapse}
+    .spec-table tr{border-bottom:1px solid #1a1a1a}
+    .spec-table tr:last-child{border-bottom:none}
+    .spec-table td{padding:9px 14px;font-size:10.5px;vertical-align:top}
+    .spec-table td:first-child{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--y);width:30%;white-space:nowrap}
+    .spec-table td:last-child{color:#bbb;line-height:1.5}
+    .spec-table tr:nth-child(odd){background:rgba(255,255,255,.02)}
+
+    .adv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:18px 44px 28px;background:var(--bk)}
+    .adv-box{background:#161616;border:1px solid #242424;border-top:2px solid var(--y);border-radius:3px;padding:14px}
+    .adv-icon{font-size:20px;margin-bottom:6px}
+    .adv-title{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:900;color:var(--y);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+    .adv-desc{font-size:9.5px;color:#666;line-height:1.5}
+
+    /* ── SCHEDULE ── */
+    .sch-section{background:var(--wh)}
+    .sch-inner{padding:28px 44px}
+
+    .wk-tabs{display:flex;gap:0;border-bottom:2px solid var(--border);overflow-x:auto}
+    .wt{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:1.5px;text-transform:uppercase;padding:10px 24px;border:none;background:none;cursor:pointer;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:color .15s,border-color .15s}
+    .wt.on{color:var(--ref-text);border-bottom-color:var(--y)}
+    .wt:hover:not(.on){color:var(--text2)}
+
+    .wp{display:none;border:1px solid var(--border);border-top:none}
+    .wp.on{display:grid;grid-template-columns:1fr 1fr}
+    .dc{padding:22px}
+    .dc+.dc{border-left:1px solid var(--border)}
+    .dh{margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--light2)}
+    .dn{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:18px;text-transform:uppercase;letter-spacing:1px;color:var(--ref-text)}
+    .ds{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:3px}
+
+    .sr{display:grid;grid-template-columns:56px 1fr;gap:0}
+    .st{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);padding:8px 10px 8px 0;border-right:2px solid var(--y);text-align:right;line-height:1.3}
+    .sb{padding:6px 0 6px 14px;border-bottom:1px solid var(--light)}
+    .sn{font-size:12px;color:var(--ref-text);font-weight:500;line-height:1.3}
+    .sg{display:inline-block;font-size:9px;font-family:'Share Tech Mono',monospace;padding:2px 7px;border-radius:2px;margin-top:3px;letter-spacing:.5px}
+    .sg-t{background:var(--light2);color:var(--muted)}
+    .sg-b{background:#e8f5e2;color:#2e7d32}
+    .sg-f{background:var(--ylight);color:var(--yd)}
+    .sg-fc{background:#fff0e3;color:#c2410c}
+    .sg-l{background:#e8eeff;color:#3730a3}
+    .sg-br{color:#ccc;font-style:italic;font-size:9px;padding-left:14px}
+
+    /* ── WHO + COMPARE ── */
+    .who-section{background:var(--wh)}
+    .p4-body{padding:24px 44px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+    .ref-section-title{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:var(--bk);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+    .ref-section-title::before{content:'';width:18px;height:3px;background:var(--y);display:block;flex-shrink:0}
+
+    .audience-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .aud-card{background:var(--light);border-top:2px solid var(--y);border-radius:3px;padding:10px 12px}
+    .aud-icon{font-size:17px;margin-bottom:4px}
+    .aud-title{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:900;color:var(--bk);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+    .aud-desc{font-size:9.5px;color:var(--muted);line-height:1.5}
+
+    .compare-table{width:100%;border-collapse:collapse;font-size:10px;margin-top:12px}
+    .compare-table th{padding:8px 10px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:900;letter-spacing:1px;text-transform:uppercase}
+    .compare-table th:first-child{background:var(--light2);color:var(--muted);width:50%}
+    .compare-table th:last-child{background:var(--bk);color:var(--y)}
+    .compare-table td{padding:7px 10px;border-bottom:1px solid var(--border);vertical-align:middle;line-height:1.4}
+    .compare-table td:first-child{background:var(--wh);color:var(--muted)}
+    .compare-table td:last-child{background:var(--ylight);color:var(--ref-text);font-weight:600}
+    .bad{color:#cc3333}.good{color:#1a7a3a;font-weight:700}
+
+    /* ── LOGISTICS ── */
+    .log-table{width:100%;border-collapse:collapse}
+    .log-table tr{border-bottom:1px solid var(--border)}
+    .log-table tr:last-child{border-bottom:none}
+    .log-table td{padding:9px 12px;font-size:10.5px;vertical-align:top}
+    .log-table td:first-child{font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--yd);width:28%;text-transform:uppercase}
+    .log-table td:last-child{color:var(--text2);line-height:1.5}
+    .log-table tr:nth-child(odd) td{background:var(--off)}
+
+    /* ── REGISTER ── */
+    .reg-wrap{background:var(--bk);display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+    .reg-left{padding:32px;background:var(--y)}
+    .rl-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(24px,3vw,32px);font-weight:900;color:var(--bk);text-transform:uppercase;letter-spacing:1px;line-height:.9;margin-bottom:16px}
+    .rl-title span{display:block;font-size:16px;font-weight:700;opacity:.55;margin-bottom:4px}
+
+    .tier-prices{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+    .tp-row{background:rgba(0,0,0,.1);border-radius:3px;padding:8px 14px;display:flex;align-items:center;justify-content:space-between}
+    .tp-name{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;color:var(--bk);text-transform:uppercase}
+    .tp-price{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;color:var(--bk)}
+    .tp-price small{font-size:10px;font-weight:500;opacity:.5}
+
+    .seats-box{background:rgba(0,0,0,.1);border-radius:3px;padding:14px;margin-top:4px}
+    .sb-title{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(0,0,0,.5);text-transform:uppercase;margin-bottom:10px}
+    .sb-row{display:flex;justify-content:space-between;font-size:11px;color:var(--bk);margin-bottom:4px;font-weight:500}
+    .sb-count{font-family:'Share Tech Mono',monospace;font-size:10px;font-weight:700}
+    .sb-track{height:3px;background:rgba(0,0,0,.15);border-radius:2px;margin-bottom:10px;overflow:hidden}
+    .sb-fill{height:100%;background:var(--bk);border-radius:2px;transition:width 1.4s ease}
+
+    .reg-right{padding:32px}
+    .rr-title{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:900;letter-spacing:2px;color:var(--y);text-transform:uppercase;margin-bottom:20px}
+
+    .rform-group{margin-bottom:14px}
+    .rform-label{display:block;font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#555;margin-bottom:6px}
+    .rform-input,.rform-select{width:100%;background:#161616;border:1px solid #2a2a2a;color:var(--wh);font-family:'Barlow',sans-serif;font-size:13px;padding:10px 13px;outline:none;transition:border-color .2s;border-radius:2px;appearance:none;-webkit-appearance:none}
+    .rform-input:focus,.rform-select:focus{border-color:var(--y)}
+    .rform-input::placeholder{color:#444}
+    .rform-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23666' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;background-color:#161616;padding-right:34px;cursor:pointer}
+    .rform-select option{background:#1a1a1a;color:var(--wh)}
+    .rform-row-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .rform-submit{width:100%;background:var(--y);color:var(--bk);font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:18px;letter-spacing:2px;text-transform:uppercase;padding:13px;border:none;cursor:pointer;margin-top:6px;border-radius:2px;transition:background .2s}
+    .rform-submit:hover{background:var(--yd)}
+    .rform-note{font-family:'Share Tech Mono',monospace;font-size:9px;color:#444;text-align:center;margin-top:8px;letter-spacing:1px}
+
+    .rr-contacts{display:flex;flex-direction:column;gap:7px;margin-bottom:16px;border-top:1px solid #2a2a2a;padding-top:14px;margin-top:14px}
+    .rr-c{display:flex;align-items:center;gap:8px;font-size:11px;color:#888}
+    .rr-c .icon{font-size:13px;flex-shrink:0}
+    .rr-c .val{font-family:'Share Tech Mono',monospace;font-size:10px;color:#bbb}
+    .rr-about{font-size:9px;color:#555;line-height:1.6;border-top:1px solid #1e1e1e;padding-top:10px;margin-top:10px}
+    .rr-about strong{color:#888;display:block;margin-bottom:3px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase}
+
+    /* REVEAL ANIMATION */
+    .rev{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+    .rev.vis{opacity:1;transform:translateY(0)}
+
+    /* RESPONSIVE */
+    @media(max-width:860px){
+      .sec-topbar,.sec-topbar-y,.adv-grid,.sch-inner,.hw-inner,.tiers-inner,.p4-body{padding-left:20px;padding-right:20px}
+      .tier-body,.tier-body.t3b{grid-template-columns:1fr}
+      .hw-inner,.p4-body{grid-template-columns:1fr}
+      .wp.on{grid-template-columns:1fr}
+      .dc+.dc{border-left:none;border-top:1px solid var(--border)}
+      .adv-grid{grid-template-columns:1fr}
+      .reg-wrap{grid-template-columns:1fr}
+      .rform-row-2{grid-template-columns:1fr}
+      .audience-grid{grid-template-columns:1fr}
+    }
+    </style>
+</head>
+<body>
+
+<!-- Yellow Strip -->
+<div class="yellow-strip">&lt;&lt; Smart Tech for Your Next Build &gt;&gt;</div>
+
+<!-- Header -->
+<header>
+    <div class="header-container">
+        <a class="logo" href="index.html" style="display: flex; align-items: center; gap: 0.5rem;">
+            <img id="siteLogo" src="assets/Kitronix.png" alt="Kite H7 Logo" style="height: 72px; width: 72px; object-fit: contain;">
+        </a>
+        <nav id="mainNavWorkshop">
+            <a href="index.html#overview">Home</a>
+            <a href="product.html">Purchase</a>
+            <a href="kitronix-workshop.html">Workshop</a>
+            <a href="index.html#support">Support</a>
+            <a href="index.html#specs">About</a>
+        </nav>
+        <div class="header-actions-right">
+            <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle dark/light mode">
+                <span class="material-symbols-outlined" id="themeToggleIcon">dark_mode</span>
+            </button>
+            <button class="icon-btn mobile-menu-btn" id="mobileMenuBtnWorkshop">
+                <span class="material-symbols-outlined" style="font-size: 20px;">menu</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- ═══════════ HERO ═══════════ -->
+<div class="hero" id="top">
+
+ 
+  <div class="hero-inner">
+    <div class="hero-title">
+
+       <div class="hero-eyebrow">
+    <p>· Daloft Aerospace · IIT Madras Research Park · </p>
+  </div>
+      <span class="l2" style="font-family: akira">Advance Drone</span>
+      <span class="l2" style="font-family: akira">Workshop</span>
+    </div>
+    <p class="hero-tagline">This program is designed to take you from understanding drone flight control to engineering complete flight control systems. It focuses on real-world concepts, hands-on implementation, and live system behavior rather than just theory.</p>
+  </div>
+
+  
+</div>
+
+<div id="tiers">
+  <div class="sec-topbar">
+    <div class="stb-right light"> &copy; powered by Daloft Aerospace</div>
+  </div>
+</div>
+
+<!-- CTA Section: Enquire & Buy -->
+<section class="cta-strip">
+    <div class="cta-strip-accent"></div>
+    <div class="cta-strip-inner">
+        <div class="cta-strip-text">
+          <div class="cta-strip-buttons">            
+            <h2>Ready to Build?</h2>                      
+            <a href="product.html" class="cta-strip-btn cta-strip-buy">
+               Register Now
+            </a>
+          </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- ═══════════ WORKSHOP TIERS ═══════════ -->
+
+
+  <div class="tiers-section">
+    <div class="tiers-inner rev">
+
+      <!-- TIER 1 -->
+      <div class="tier-card">
+        <div class="tier-head">
+          <div class="th-left">
+            <div class="th-num">Tier 01</div>
+            <div class="th-name">Flight Control Fundamentals</div>
+            <div class="th-sub">PID Tuning · MAVLink · Mission Planner · Sensors · First Flight</div>
+          </div>
+          <div class="th-price">
+            <div class="amount">₹4,900</div>
+            <span class="gst">+ GST · 1 Day (8–9 hrs)</span>
+          </div>
+        </div>
+        <div class="tier-body">
+          <div class="ti"><div class="ti-arrow">→</div><div class="ti-text">KITE H7 hardware walkthrough — ports, power architecture, sensor layout</div></div>
+          <div class="ti"><div class="ti-arrow">→</div><div class="ti-text">Complete accelerometer, gyroscope, magnetometer &amp; barometer calibration</div></div>
+          <div class="ti"><div class="ti-arrow">→</div><div class="ti-text">PID tuning methodology — roll, pitch, yaw loops on real hardware</div></div>
+          <div class="ti"><div class="ti-arrow">→</div><div class="ti-text">MAVLink parameter tuning via Mission Planner &amp; QGroundControl</div></div>
+          <div class="ti"><div class="ti-arrow">→</div><div class="ti-text">SD card flight data log analysis — vibration, PID response, sensor drift</div></div>
+          <div class="ti"><div class="ti-arrow">→</div><div class="ti-text">Live flight test: tune → fly → analyse → re-tune loop</div></div>
+        </div>
+        <div class="tier-foot">
+          <div class="tf-label">You Leave With:</div>
+          <div class="tf-chip">Calibrated KITE H7</div>
+          <div class="tf-chip">PID Parameter Sheet</div>
+          <div class="tf-chip">Flight Data Logs</div>
+          <div class="tf-chip">Certificate</div>
+          <div class="tf-ideal">Ideal: Operators upgrading to engineers · Aero students · Hobbyists</div>
+        </div>
+      </div>
+
+      <!-- TIER 2 -->
+      <div class="tier-card">
+        <div class="tier-head">
+          <div class="th-left">
+            <div class="th-num">Tier 02</div>
+            <div class="th-name">Advanced Flight Control Systems</div>
+            <div class="th-sub">Sensor Fusion · EKF · LiDAR · Optical Flow · Indoor Nav · CAN-FD</div>
+          </div>
+          <div class="th-price">
+            <div class="amount">₹7,499</div>
+            <span class="gst">+ GST · 1 Day (9–10 hrs)</span>
+          </div>
+        </div>
+        <div class="tier-body">
+          <div class="ti"><div class="ti-arrow">→</div><div class="ti-text">EKF internals — state vector, covariance propagation, multi-sensor fusion</div></div>
+          <div class="ti"><div class="ti-arrow">→</div><div class="ti-text">IMU vibration damping — frequency analysis, notch filter tuning</div></div>
+          <div class="ti"><div class="ti-arrow">→</div><div class="ti-text">GPS + Baro + IMU sensor fusion — altitude &amp; position hold</div></div>
+          <div class="ti"><div class="ti-arrow">→</div><div class="ti-text">LiDAR integration (TFMini) — terrain following &amp; proximity detection</div></div>
+          <div class="ti"><div class="ti-arrow">→</div><div class="ti-text">Indoor navigation: LiDAR + Optical Flow + IMU fusion architecture</div></div>
+          <div class="ti"><div class="ti-arrow">→</div><div class="ti-text">Obstacle detection algorithm &amp; collision avoidance state machine design</div></div>
+        </div>
+        <div class="tier-foot">
+          <div class="tf-label">You Leave With:</div>
+          <div class="tf-chip">Sensor Fusion Lab Reports</div>
+          <div class="tf-chip">LiDAR + Flow Demo</div>
+          <div class="tf-chip">Custom EKF Params</div>
+          <div class="tf-chip">Certificate</div>
+          <div class="tf-ideal">Ideal: Embedded engineers · R&amp;D professionals · Startup tech leads</div>
+        </div>
+      </div>
+
+      <!-- TIER 3 -->
+      <div class="tier-card">
+        <div class="tier-head t3h">
+          <div class="th-left">
+            <div class="th-num" style="color:var(--y)">Tier 03 — Premium</div>
+            <div class="th-name" style="color:var(--y)">Flight Control Firmware &amp; Hardware Dev</div>
+            <div class="th-sub">Custom Firmware · IMU Fusion Algorithms · Filtering · PCB Design · STM32H7</div>
+          </div>
+          <div class="th-price">
+            <div class="amount">₹25,900</div>
+            <span class="gst">+ GST · 2 Days (16–18 hrs)</span>
+          </div>
+        </div>
+        <div class="tier-body">
+          <div class="ti"><div class="ti-arrow">→</div><div class="ti-text">SPI/I2C IMU driver design — DMA, interrupts, data pipelining</div></div>
+          <div class="ti"><div class="ti-arrow">→</div><div class="ti-text">Sensor noise characterisation — Allan Variance, PSD analysis</div></div>
+          <div class="ti"><div class="ti-arrow">→</div><div class="ti-text">Complementary, Madgwick &amp; Mahony filter implementation in C</div></div>
+          <div class="ti"><div class="ti-arrow">→</div><div class="ti-text">Kalman filter math — derivation, discrete implementation, tuning</div></div>
+          <div class="ti"><div class="ti-arrow">→</div><div class="ti-text">Quaternion attitude — avoiding gimbal lock</div></div>
+          <div class="ti"><div class="ti-arrow">→</div><div class="ti-text">Multi-rate sensor fusion — 1kHz gyro + 200Hz accel + 100Hz baro</div></div>
+          <div class="ti"><div class="ti-arrow">→</div><div class="ti-text">STM32H743 peripherals — FDCAN, SPI, I2C, TIM, DMA config</div></div>
+          <div class="ti"><div class="ti-arrow">→</div><div class="ti-text">PX4 NuttX RTOS — tasks, work queues, uORB pub-sub, DMA drivers</div></div>
+          <div class="ti"><div class="ti-arrow">→</div><div class="ti-text">Custom board porting: board_config.h, timer_config, USB, power</div></div>
+          <div class="ti"><div class="ti-arrow">→</div><div class="ti-text">IMU PCB design — decoupling, pour plane, soft-mount footprint</div></div>
+        </div>
+        <div class="tier-foot" style="background:var(--ylight)">
+          <div class="tf-label">You Leave With:</div>
+          <div class="tf-chip">STM32H7 IMU Fusion Firmware (C Source)</div>
+          <div class="tf-chip">KiCad Schematic + PCB Files</div>
+          <div class="tf-chip">Allan Variance Tool</div>
+          <div class="tf-chip">30-min Mentorship</div>
+          <div class="tf-chip">LOR (on request)</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+<!-- ═══════════ HARDWARE ═══════════ -->
+<div id="hardware">
+  <div class="sec-topbar-y">
+    <div class="stb-title dark">KITE H7 Flight Controller — <span style="opacity:.55">Technical Specifications</span></div>
+    <div class="stb-right dark">Made in India · Daloft Aerospace Pvt. Ltd.</div>
+  </div>
+
+  <div class="hw-section">
+    <div class="hw-inner rev">
+      
+      <div>
+        <div class="ey">Why Use This Hardware</div>
+        <div class="hw-title" style="margin-bottom:14px">Workshop<br><span>Advantages</span></div>
+        <p class="hw-desc">Purpose-built for deep-learning environments. Every peripheral is accessible, documented, and modifiable by participants during the session.</p>
+        <table class="spec-table" style="margin-top:0">
+          <tr><td>OPEN SOURCE</td><td>Full PX4 &amp; ArduPilot source — participants can trace every line of code that controls the drone</td></tr>
+          <tr><td>DUAL IMU</td><td>Disagreement detection and switchover logic taught hands-on — unique to this workshop</td></tr>
+          <tr><td>CAN-FD BUS</td><td>DroneCAN ESC telemetry lab — real CAN frames on an oscilloscope</td></tr>
+          <tr><td>STM32H7</td><td>Same SoC used in production defence and commercial drones — industry-relevant skills</td></tr>
+          <tr><td>MADE IN INDIA</td><td>Schematics available for Tier 3 — participants can understand and replicate the design</td></tr>
+          <tr><td>SUPPORT</td><td>Ongoing community access via Daloft Discord + GitHub for post-workshop projects</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ SCHEDULE ═══════════ -->
+<div id="schedule">
+  <div class="sec-topbar">
+    <div class="stb-title light">4-Weekend Schedule — <span style="color:var(--y)">9am to 2pm each day</span></div>
+    <div class="stb-right light">5 hrs/session · zero filler</div>
+  </div>
+  <div class="sch-section">
+    <div class="sch-inner rev">
+      <div class="wk-tabs">
+        <button class="wt on" onclick="sw(0,this)">Weekend 1</button>
+        <button class="wt" onclick="sw(1,this)">Weekend 2</button>
+        <button class="wt" onclick="sw(2,this)">Weekend 3</button>
+        <button class="wt" onclick="sw(3,this)">Weekend 4</button>
+      </div>
+
+      <div class="wp on" id="wp0">
+        <div class="dc">
+          <div class="dh"><div class="dn">Saturday</div><div class="ds">All tiers · Week 1 · Foundations</div></div>
+          <div class="sr"><div class="st">9:00</div><div class="sb"><div class="sn">Welcome + kit distribution</div><span class="sg sg-t">orientation</span></div></div>
+          <div class="sr"><div class="st">9:30</div><div class="sb"><div class="sn">Drone ecosystem &amp; DGCA regulations</div><span class="sg sg-t">theory</span></div></div>
+          <div class="sr"><div class="st">10:30</div><div class="sb"><div class="sn">Flight physics — motors, ESC, propellers</div><span class="sg sg-t">theory</span></div></div>
+          <div class="sr"><div class="st">11:15</div><div class="sb"><div class="sn">Break</div><span class="sg-br">15 min</span></div></div>
+          <div class="sr"><div class="st">11:30</div><div class="sb"><div class="sn">KITE H7 live anatomy &amp; demo</div><span class="sg sg-fc">KITE H7</span></div></div>
+          <div class="sr"><div class="st">12:30</div><div class="sb"><div class="sn">Simulator session (rotation groups)</div><span class="sg sg-l">simulator</span></div></div>
+          <div class="sr"><div class="st">1:30</div><div class="sb"><div class="sn">Outdoor demo flight + Q&amp;A</div><span class="sg sg-f">flight</span></div></div>
+        </div>
+        <div class="dc">
+          <div class="dh"><div class="dn">Sunday</div><div class="ds">Tier 2 + 3 only · Build begins</div></div>
+          <div class="sr"><div class="st">9:00</div><div class="sb"><div class="sn">Component deep-dive + wiring overview</div><span class="sg sg-t">theory</span></div></div>
+          <div class="sr"><div class="st">10:00</div><div class="sb"><div class="sn">Frame assembly + motor mounting</div><span class="sg sg-b">build</span></div></div>
+          <div class="sr"><div class="st">11:30</div><div class="sb"><div class="sn">Break</div><span class="sg-br">15 min</span></div></div>
+          <div class="sr"><div class="st">11:45</div><div class="sb"><div class="sn">ESC soldering + wiring harness</div><span class="sg sg-b">build</span></div></div>
+          <div class="sr"><div class="st">1:30</div><div class="sb"><div class="sn">Continuity checks + safety walkthrough</div><span class="sg sg-l">lab</span></div></div>
+        </div>
+      </div>
+
+      <div class="wp" id="wp1">
+        <div class="dc">
+          <div class="dh"><div class="dn">Saturday</div><div class="ds">All tiers · Week 2 · Configuration</div></div>
+          <div class="sr"><div class="st">9:00</div><div class="sb"><div class="sn">T1 — Review quiz + drone career paths</div><span class="sg sg-t">T1</span></div></div>
+          <div class="sr"><div class="st">10:00</div><div class="sb"><div class="sn">KITE H7 flashing + configurator walkthrough</div><span class="sg sg-fc">KITE H7</span></div></div>
+          <div class="sr"><div class="st">11:15</div><div class="sb"><div class="sn">Break</div><span class="sg-br">15 min</span></div></div>
+          <div class="sr"><div class="st">11:30</div><div class="sb"><div class="sn">Receiver binding + radio calibration</div><span class="sg sg-l">lab</span></div></div>
+          <div class="sr"><div class="st">12:30</div><div class="sb"><div class="sn">Motor direction test + prop installation</div><span class="sg sg-b">build</span></div></div>
+          <div class="sr"><div class="st">1:30</div><div class="sb"><div class="sn">T1 — Extended simulator + hover demo</div><span class="sg sg-f">T1 demo</span></div></div>
+        </div>
+        <div class="dc">
+          <div class="dh"><div class="dn">Sunday</div><div class="ds">Tier 2 + 3 · PID &amp; first hover</div></div>
+          <div class="sr"><div class="st">9:00</div><div class="sb"><div class="sn">PID theory — P, I, D explained</div><span class="sg sg-t">theory</span></div></div>
+          <div class="sr"><div class="st">10:30</div><div class="sb"><div class="sn">PID tuning hands-on on KITE H7</div><span class="sg sg-fc">KITE H7</span></div></div>
+          <div class="sr"><div class="st">12:00</div><div class="sb"><div class="sn">Break</div><span class="sg-br">15 min</span></div></div>
+          <div class="sr"><div class="st">12:15</div><div class="sb"><div class="sn">Pre-flight checklist + safety briefing</div><span class="sg sg-t">safety</span></div></div>
+          <div class="sr"><div class="st">1:00</div><div class="sb"><div class="sn">First tethered hover — your drone!</div><span class="sg sg-f">first flight</span></div></div>
+        </div>
+      </div>
+
+      <div class="wp" id="wp2">
+        <div class="dc">
+          <div class="dh"><div class="dn">Saturday</div><div class="ds">All tiers · Week 3 · Flight + T1 Graduation</div></div>
+          <div class="sr"><div class="st">9:00</div><div class="sb"><div class="sn">T1 — Drone industry &amp; career deep dive</div><span class="sg sg-t">T1</span></div></div>
+          <div class="sr"><div class="st">10:00</div><div class="sb"><div class="sn">Free outdoor flight session (T2+T3)</div><span class="sg sg-f">flight</span></div></div>
+          <div class="sr"><div class="st">11:15</div><div class="sb"><div class="sn">Break</div><span class="sg-br">15 min</span></div></div>
+          <div class="sr"><div class="st">11:30</div><div class="sb"><div class="sn">T1 — Certificate + KITE H7 showcase + coupon</div><span class="sg sg-fc">T1 graduation</span></div></div>
+          <div class="sr"><div class="st">12:30</div><div class="sb"><div class="sn">Oscillation fix + flight troubleshooting</div><span class="sg sg-l">lab</span></div></div>
+          <div class="sr"><div class="st">1:30</div><div class="sb"><div class="sn">Acro mode intro + fail-safe configuration</div><span class="sg sg-t">theory</span></div></div>
+        </div>
+        <div class="dc">
+          <div class="dh"><div class="dn">Sunday</div><div class="ds">Tier 3 only · KITE H7 firmware exclusive</div></div>
+          <div class="sr"><div class="st">9:00</div><div class="sb"><div class="sn">KITE H7 architecture — full 4-hour session</div><span class="sg sg-fc">T3 exclusive</span></div></div>
+          <div class="sr"><div class="st">11:00</div><div class="sb"><div class="sn">Break</div><span class="sg-br">15 min</span></div></div>
+          <div class="sr"><div class="st">11:15</div><div class="sb"><div class="sn">Custom firmware flash + pin mapping</div><span class="sg sg-l">lab</span></div></div>
+          <div class="sr"><div class="st">12:30</div><div class="sb"><div class="sn">MAVLink intro + Mission Planner tour</div><span class="sg sg-t">theory</span></div></div>
+          <div class="sr"><div class="st">1:30</div><div class="sb"><div class="sn">GPS module wiring + integration test</div><span class="sg sg-b">build</span></div></div>
+        </div>
+      </div>
+
+      <div class="wp" id="wp3">
+        <div class="dc">
+          <div class="dh"><div class="dn">Saturday</div><div class="ds">Tier 2 Graduation · Week 4</div></div>
+          <div class="sr"><div class="st">9:00</div><div class="sb"><div class="sn">Final build review + troubleshooting</div><span class="sg sg-l">lab</span></div></div>
+          <div class="sr"><div class="st">10:30</div><div class="sb"><div class="sn">Precision flight challenge (timed)</div><span class="sg sg-f">flight challenge</span></div></div>
+          <div class="sr"><div class="st">11:30</div><div class="sb"><div class="sn">Break</div><span class="sg-br">15 min</span></div></div>
+          <div class="sr"><div class="st">11:45</div><div class="sb"><div class="sn">KITE H7 credit voucher + community onboard</div><span class="sg sg-fc">KITE H7 offer</span></div></div>
+          <div class="sr"><div class="st">12:30</div><div class="sb"><div class="sn">T2 certificate ceremony + group photo</div><span class="sg sg-b">T2 graduation</span></div></div>
+          <div class="sr"><div class="st">1:30</div><div class="sb"><div class="sn">Testimonial video + feedback form</div><span class="sg sg-t">wrap-up</span></div></div>
+        </div>
+        <div class="dc">
+          <div class="dh"><div class="dn">Sunday</div><div class="ds">Tier 3 Graduation · Autonomous Mission</div></div>
+          <div class="sr"><div class="st">9:00</div><div class="sb"><div class="sn">Design your autonomous waypoint mission</div><span class="sg sg-l">lab</span></div></div>
+          <div class="sr"><div class="st">10:30</div><div class="sb"><div class="sn">Execute participant-planned auto mission</div><span class="sg sg-f">auto flight</span></div></div>
+          <div class="sr"><div class="st">11:30</div><div class="sb"><div class="sn">Break</div><span class="sg-br">15 min</span></div></div>
+          <div class="sr"><div class="st">11:45</div><div class="sb"><div class="sn">KITE H7 unit handout + support onboarding</div><span class="sg sg-fc">KITE H7 included</span></div></div>
+          <div class="sr"><div class="st">12:30</div><div class="sb"><div class="sn">LOR + T3 certificate ceremony</div><span class="sg sg-b">T3 graduation</span></div></div>
+          <div class="sr"><div class="st">1:30</div><div class="sb"><div class="sn">Open Q&amp;A + future projects discussion</div><span class="sg sg-t">wrap-up</span></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ WHO + COMPARE ═══════════ -->
+<div class="who-section">
+  <div class="sec-topbar-y">
+    <div class="stb-title dark">Who Should Attend &amp; Why Not Another Workshop</div>
+    <div class="stb-right dark">6 target profiles · honest comparison</div>
+  </div>
+  <div class="p4-body rev">
+    <div>
+      <div class="ref-section-title">Why Not Another Workshop</div>
+      <table class="compare-table">
+        <tr><th>Other Workshops</th><th>KITE H7 Workshop</th></tr>
+        <tr><td><span class="bad">✗</span> Teaches flying drones</td><td><span class="good">✓</span> Teaches flight control engineering</td></tr>
+        <tr><td><span class="bad">✗</span> Pre-built software setups</td><td><span class="good">✓</span> Real hardware: KITE H7 FC</td></tr>
+        <tr><td><span class="bad">✗</span> No hardware depth</td><td><span class="good">✓</span> Dual IMU sensor fusion labs</td></tr>
+        <tr><td><span class="bad">✗</span> Generic simulators</td><td><span class="good">✓</span> Actual PX4/ArduPilot architecture</td></tr>
+        <tr><td><span class="bad">✗</span> Zero firmware exposure</td><td><span class="good">✓</span> Firmware &amp; PCB design (Tier 3)</td></tr>
+        <tr><td><span class="bad">✗</span> No post-workshop support</td><td><span class="good">✓</span> Discord + GitHub community access</td></tr>
+      </table>
+
+      <div style="margin-top:16px">
+        <div class="ref-section-title">Format &amp; Logistics</div>
+        <div style="background:var(--wh);border:1px solid var(--border);border-radius:4px;overflow:hidden">
+          <table class="log-table">
+            <tr><td>Duration</td><td>Tier 1: 1 day · Tier 2: 1 day · Tier 3: 2 days (spread across 4 weekends)</td></tr>
+            <tr><td>Batch Size</td><td>Maximum 20 participants per batch — guaranteed individual attention</td></tr>
+            <tr><td>Location</td><td>IIT Madras Research Park, Chennai, Tamil Nadu</td></tr>
+            <tr><td>Equipment</td><td>KITE H7 FC, drone airframe, telemetry, ESCs, sensors — all provided</td></tr>
+            <tr><td>Laptop</td><td>Participants bring their own (Windows / Linux / Mac supported)</td></tr>
+            <tr><td>Certificate</td><td>Digitally signed certificate from Daloft Aerospace Pvt. Ltd.</td></tr>
+            <tr><td>Group Deal</td><td>Groups of 3+ get 10% off · Corporate batches (5+) available</td></tr>
+            <tr><td>Prerequisites</td><td>Tier 1: Drone familiarity · Tier 2: Embedded background · Tier 3: C/C++ + STM32</td></tr>
+          </table>
+        </div>
+      </div>
+
+     
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ REGISTER ═══════════ -->
+
+     
+
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="index.html#overview">Overview</a></li>
+                    <li><a href="index.html#specs">Specifications</a></li>
+                    <li><a href="kitronix-workshop.html">Gallery</a></li>
+                    <li><a href="product.html" style="color: var(--primary); font-weight: 700;">Purchase</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="index.html#support">Documentation</a></li>
+                    <li><a href="index.html#support">Firmware</a></li>
+                    <li><a href="index.html#support">Community Forum</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Kite H7. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Schedule tab switcher
+    function sw(i, btn) {
+      for (let j = 0; j < 4; j++) document.getElementById('wp' + j).classList.toggle('on', j === i);
+      document.querySelectorAll('.wt').forEach((b, j) => b.classList.toggle('on', j === i));
+    }
+
+    // Scroll reveal animation
+    const obs = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis') }) }, { threshold: 0.06 });
+    document.querySelectorAll('.rev').forEach(el => obs.observe(el));
+
+    // Animate seat fill bars
+    setTimeout(() => {
+      document.getElementById('sf1').style.width = '30%';
+      document.getElementById('sf2').style.width = '60%';
+      document.getElementById('sf3').style.width = '75%';
+    }, 600);
+
+    // Registration handler
+    function handleReg(btn) {
+      btn.textContent = 'Submitted — We\'ll Be In Touch!';
+      btn.style.background = '#1a7a3a';
+      btn.style.color = '#fff';
+      btn.disabled = true;
+    }
+
+    // Mobile menu toggle for workshop page
+    const mobileMenuBtnWorkshop = document.getElementById('mobileMenuBtnWorkshop');
+    const mainNavWorkshop = document.getElementById('mainNavWorkshop');
+    
+    if (mobileMenuBtnWorkshop) {
+        mobileMenuBtnWorkshop.addEventListener('click', () => {
+            mainNavWorkshop.classList.toggle('active');
+            const icon = mobileMenuBtnWorkshop.querySelector('.material-symbols-outlined');
+            icon.textContent = mainNavWorkshop.classList.contains('active') ? 'close' : 'menu';
+        });
+    }
+
+    // Close mobile menu when clicking nav links
+    const navLinksWorkshop = mainNavWorkshop.querySelectorAll('a');
+    navLinksWorkshop.forEach(link => {
+        link.addEventListener('click', () => {
+            mainNavWorkshop.classList.remove('active');
+            const icon = mobileMenuBtnWorkshop.querySelector('.material-symbols-outlined');
+            icon.textContent = 'menu';
+        });
+    });
+
+    // Theme toggle functionality
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeToggleIcon = document.getElementById('themeToggleIcon');
+    const siteLogo = document.getElementById('siteLogo');
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('kitronix-theme', newTheme);
+            themeToggleIcon.textContent = newTheme === 'dark' ? 'light_mode' : 'dark_mode';
+            if (siteLogo) {
+                siteLogo.src = newTheme === 'dark' ? 'assets/Logo2.png' : 'assets/Kitronix.png';
+            }
+        });
+    }
+
+    // Mobile navbar scroll behavior
+    let lastScrollTop = 0;
+    const header = document.querySelector('header');
+
+    function handleScroll() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop > lastScrollTop) {
+            header.classList.remove('mobile-visible');
+        } else {
+            header.classList.add('mobile-visible');
+        }
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    }
+
+    function checkMobile() {
+        if (window.innerWidth <= 1024) {
+            window.addEventListener('scroll', handleScroll);
+            handleScroll();
+        } else {
+            window.removeEventListener('scroll', handleScroll);
+            header.classList.remove('mobile-visible');
+        }
+    }
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    // Smooth scroll behavior for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+</script>
+</body>
+</html>
