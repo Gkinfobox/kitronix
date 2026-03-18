@@ -483,6 +483,34 @@
                 margin-bottom: 0.3rem;
             }
         }
+
+        /* ── Feature Section Mobile Reordering ── */
+        @media (max-width: 768px) {
+            /* Section 1: Show title first, then image, then description */
+            .feature-section-1 .feature-split-container {
+                display: flex;
+                flex-direction: column;
+            }
+            .feature-section-1 .feature-split-image {
+                order: 2;
+            }
+            .feature-section-1 .feature-split-content {
+                order: 1;
+            }
+
+            /* Section 2: Show title/image/description on mobile */
+            .feature-section-2 .feature-split-container {
+                display: flex;
+                flex-direction: column;
+            }
+            .feature-section-2 .feature-split-image {
+                order: 2;
+            }
+            .feature-section-2 .feature-split-content {
+                order: 1;
+            }
+        }
+
         @media (max-width: 480px) {
             .product-title {
                 font-size: 20px !important;
@@ -856,7 +884,7 @@
                 <img id="siteLogo" src="assets/Kitronix.png" alt="Kite H7 Logo" style="height: 92px; width: 92px; object-fit: contain;">
             </a>
             <nav class="main-nav" id="mainNav">
-                <a href="#overview">Home</a>
+                <a href="index.html">Home</a>
                 <a href="product.html">Purchase</a>
                 <a href="kitronix-workshop.html">Workshop</a>
                 <a href="#support">Support</a>
@@ -877,7 +905,7 @@
         <div class="breadcrumb">
             <a href="index.html">Home</a>
             <span>/</span>
-            <a href="#">Flight Controllers</a>
+            <a href="product.html">Purchase</a>
             <span>/</span>
             <span style="opacity: 1;">Kite H7</span>
         </div>
@@ -885,24 +913,24 @@
         <div class="product-grid">
             <div class="product-images">
                 <div class="main-image">
-                    <img id="mainProductImage" src="assets/actual_img/1.png" alt="Kite H7 Flight Controller">
+                    <img id="mainProductImage" src="assets/edited/A1.png" alt="Kite H7 Flight Controller">
                 </div>
                 <div class="thumbnail-grid">
-                    <div class="thumbnail active" onclick="changeImage('assets/actual_img/1.png', this)">
-                        <img src="assets/actual_img/1.png" alt="View 1">
+                    <div class="thumbnail" onclick="changeImage('assets/edited/A3.png', this)">
+                        <img src="assets/edited/A3.png" alt="View 3">
                     </div>
-                    <div class="thumbnail" onclick="changeImage('assets/actual_img/2.png', this)">
-                        <img src="assets/actual_img/2.png" alt="View 2">
+                    <div class="thumbnail active" onclick="changeImage('assets/edited/A1.png', this)">
+                        <img src="assets/edited/A1.png" alt="View 1">
                     </div>
-                    <div class="thumbnail" onclick="changeImage('assets/actual_img/4.png', this)">
-                        <img src="assets/actual_img/4.png" alt="View 3">
+                    <div class="thumbnail" onclick="changeImage('assets/edited/A5.png', this)">
+                        <img src="assets/edited/A5.png" alt="View 5">
                     </div>
-                    <div class="thumbnail" onclick="changeImage('assets/actual_img/5.png', this)">
-                        <img src="assets/actual_img/5.png" alt="View 4">
+                    <div class="thumbnail" onclick="changeImage('assets/edited/A2.png', this)">
+                        <img src="assets/edited/A2.png" alt="View 2">
                     </div>
-                    <div class="thumbnail" onclick="changeImage('assets/actual_img/1.png', this)">
-                        <img src="assets/actual_img/1.png" alt="View 5">
-                    </div>
+                    
+                
+                    
                 </div>
 
                 <!-- Key Features Box -->
@@ -967,9 +995,7 @@
                     <p style="font-size: 14px; line-height: 1.75; color: var(--text-dark);">The Kite H7 is a high-performance flight controller engineered for both hobbyists and professional UAV builders. Built on the powerful STM32H7 processor, it delivers unmatched reliability, precision, and versatility. Designed for custom firmware like ArduPilot and PX4, Kite H7 adapts seamlessly to all your autonomous flight projects.</p>
                 </div>
                 <div class="product-header">
-                    <div class="product-tag" style="color: var(--text-dark); opacity: 0.7; margin-bottom: 8px;">Flight Controllers</div>
-                    <h1 class="product-title" style="font-size: 32px; margin-bottom: 12px;">Kite H7 Flight Controller</h1>
-
+                    
                     <div style="margin: 20px 0; padding: 16px 0; border-bottom: 1px solid var(--tech-border);">
                         <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
                             <span style="font-size: 14px; font-weight: 700; color: var(--text-charcoal);">Availability:</span>
@@ -1075,13 +1101,12 @@
         <br>
 
         <!-- Feature Section 1: Built for Performance -->
-        <div class="feature-split-section feature-image-first">
+        <div class="feature-split-section feature-split-alt feature-section-1">
             <div class="feature-split-container">
                 <div class="feature-split-image">
-                    <img src="assets/actual_img/4-Photoroom.png" alt="Kite H7 Flight Controller" />
+                    <img src="assets/edited/A3edited.png" alt="Kite H7 Flight Controller" />
                 </div>
                 <div class="feature-split-content">
-                    <p class="feature-split-eyebrow">High Performance Core</p>
                     <h2 class="feature-split-title">Built for Performance</h2>
                     <div class="feature-split-divider"></div>
                     <p class="feature-split-desc">Powered by the STM32H753 running at 480&nbsp;MHz, the Kite H7 delivers the raw processing power required for demanding flight algorithms and real-time firmware execution — giving you the speed and reliability every serious build demands.</p>
@@ -1095,23 +1120,24 @@
             </div>
         </div>
 
+        <br>
+        <br>
         <!-- Feature Section 2: Precision Sensing -->
-        <div class="feature-split-section feature-split-alt">
-            <div class="feature-split-container">
-                <div class="feature-split-content">
-                    <p class="feature-split-eyebrow">Advanced Sensor Suite</p>
-                    <h2 class="feature-split-title">Precision Sensing &amp; Control</h2>
+        <div class="feature-split-section feature-split-alt feature-section-2" style="background-color: #000;">
+            <div class="feature-split-container" >
+                <div class="feature-split-content" >
+                    <h2 class="feature-split-title" style="color: #ffffff;">Precision Sensing &amp; Control</h2>
                     <div class="feature-split-divider"></div>
-                    <p class="feature-split-desc">A dual-IMU architecture combining the ICM-42688 and BMI088 sensors provides redundant motion sensing, ensuring rock-solid stability even under extreme vibration loads. Onboard barometer and compass complete the picture.</p>
-                    <ul class="feature-split-list">
-                        <li><span class="material-symbols-outlined">check_circle</span> ICM-42688 + BMI088 Dual IMU</li>
-                        <li><span class="material-symbols-outlined">check_circle</span> BMP388 Onboard Barometer</li>
-                        <li><span class="material-symbols-outlined">check_circle</span> BMM350 Onboard Compass</li>
-                        <li><span class="material-symbols-outlined">check_circle</span> Vibration-Damped Sensor Mounting</li>
+                    <p class="feature-split-desc" style="color: #ffffff;">A dual-IMU architecture combining the ICM-42688 and BMI088 sensors provides redundant motion sensing, ensuring rock-solid stability even under extreme vibration loads. Onboard barometer and compass complete the picture.</p>
+                    <ul class="feature-split-list" style="color: #ffffff;">
+                        <li style="color: #ffffff;"><span class="material-symbols-outlined">check_circle</span> ICM-42688 + BMI088 Dual IMU</li>
+                        <li style="color: #ffffff;"><span class="material-symbols-outlined">check_circle</span> BMP388 Onboard Barometer</li>
+                        <li style="color: #ffffff;"><span class="material-symbols-outlined">check_circle</span> BMM350 Onboard Compass</li>
+                        <li style="color: #ffffff;"><span class="material-symbols-outlined">check_circle</span> Vibration-Damped Sensor Mounting</li>
                     </ul>
                 </div>
                 <div class="feature-split-image">
-                    <img src="assets/actual_img/2-Photoroom.png" alt="Kite H7 Sensors" />
+                    <img src="assets/edited/neon.png" alt="Kite H7 Sensors" />
                 </div>
             </div>
         </div>
@@ -1153,9 +1179,6 @@
             <!-- Panel: GPS -->
             <div class="periph-panel active" id="panel-gps">
                 <div class="periph-panel-header">
-                    <div class="periph-panel-icon">
-                        <span class="material-symbols-outlined">satellite_alt</span>
-                    </div>
                     <div class="periph-panel-meta">
                         <h3>GPS &amp; GNSS Modules</h3>
                         <p>High-precision positioning with support for single-band, multi-band, and RTK GNSS systems.</p>
@@ -1184,9 +1207,7 @@
             <!-- Panel: Telemetry -->
             <div class="periph-panel" id="panel-telemetry">
                 <div class="periph-panel-header">
-                    <div class="periph-panel-icon">
-                        <span class="material-symbols-outlined">cell_tower</span>
-                    </div>
+                    
                     <div class="periph-panel-meta">
                         <h3>Telemetry &amp; Communication</h3>
                         <p>Reliable long-range and high-speed data links for real-time flight monitoring and mission control.</p>
@@ -1215,9 +1236,7 @@
             <!-- Panel: Power -->
             <div class="periph-panel" id="panel-power">
                 <div class="periph-panel-header">
-                    <div class="periph-panel-icon">
-                        <span class="material-symbols-outlined">bolt</span>
-                    </div>
+                   
                     <div class="periph-panel-meta">
                         <h3>Power Module Support</h3>
                         <p>Designed for safe and reliable power delivery with real-time battery monitoring.</p>
@@ -1246,9 +1265,7 @@
             <!-- Panel: ESC -->
             <div class="periph-panel" id="panel-esc">
                 <div class="periph-panel-header">
-                    <div class="periph-panel-icon">
-                        <span class="material-symbols-outlined">speed</span>
-                    </div>
+                   
                     <div class="periph-panel-meta">
                         <h3>ESC &amp; Motor Output</h3>
                         <p>Flexible motor control supporting both legacy and modern ESC protocols.</p>
@@ -1277,9 +1294,7 @@
             <!-- Panel: RC -->
             <div class="periph-panel" id="panel-rc">
                 <div class="periph-panel-header">
-                    <div class="periph-panel-icon">
-                        <span class="material-symbols-outlined">settings_remote</span>
-                    </div>
+                  
                     <div class="periph-panel-meta">
                         <h3>RC Input Support</h3>
                         <p>Wide compatibility with modern and legacy radio control systems.</p>
@@ -1308,9 +1323,7 @@
             <!-- Panel: Sensors -->
             <div class="periph-panel" id="panel-sensors">
                 <div class="periph-panel-header">
-                    <div class="periph-panel-icon">
-                        <span class="material-symbols-outlined">sensors</span>
-                    </div>
+                 
                     <div class="periph-panel-meta">
                         <h3>Sensor &amp; Expansion</h3>
                         <p>Built for redundancy, precision, and future expansion.</p>
@@ -1336,26 +1349,13 @@
                 </ul>
             </div>
 
-            <!-- CAN DroneCAN Banner -->
-            <div class="periph-can-banner">
-                <span class="material-symbols-outlined">hub</span>
-                <div>
-                    <h4>CAN (DroneCAN) Ecosystem</h4>
-                    <p>Native dual-CAN bus support for professional peripherals — enabling a noise-immune, daisy-chained architecture.</p>
-                    <div class="periph-can-tags">
-                        <span class="periph-can-tag">GNSS Receivers</span>
-                        <span class="periph-can-tag">Smart ESCs</span>
-                        <span class="periph-can-tag">Power Modules</span>
-                        <span class="periph-can-tag">Rangefinders</span>
-                        <span class="periph-can-tag">Airspeed Sensors</span>
-                    </div>
-                </div>
-            </div>
+            
         </div>
 
         <hr style="margin: 60px 0; border-color: var(--tech-border);">
         <!-- 24/7 After-Sales Support Section -->
-        <div style="display: flex; align-items: center; gap: 48px; margin-bottom: 60px; flex-wrap: wrap;">
+        <div class="feature-split-section feature-split-alt">
+            <div style="display: flex; align-items: center; gap: 48px; margin-bottom: 60px; flex-wrap: wrap;">
             <div style="flex: 1; min-width: 260px;">
                 <p style="font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--primary); font-weight: 700; margin-bottom: 0.75rem;">Customer Support</p>
                 <h2 style="font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; color: var(--text-charcoal); line-height: 1.2; margin-bottom: 1.25rem;">24/7 After-Sales Support</h2>
@@ -1372,8 +1372,9 @@
                 </div>
             </div>
             <div style="flex: 1; min-width: 260px; display: flex; justify-content: center;">
-                <img src="assets/actual_img/v2_2-removebg-preview.png" alt="Kitronix Support" style="max-width: 100%; width: 420px; object-fit: contain; filter: drop-shadow(0 8px 32px rgba(0,0,0,0.18));">
+                <img src="assets/edited/A3edited.png" alt="Kitronix Support" style="max-width: 100%; width: 420px; object-fit: contain; filter: drop-shadow(0 8px 32px rgba(0,0,0,0.18));">
             </div>
+             </div>
         </div>
 
         <hr style="margin: 0 0 60px 0; border-color: var(--tech-border);">
