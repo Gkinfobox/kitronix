@@ -5,6 +5,15 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'TheBoldFont';
+    src: url('the_bold_font/THEBOLDFONT-FREEVERSION.woff2') format('woff2'),
+         url('the_bold_font/THEBOLDFONT-FREEVERSION.woff') format('woff'),
+         url('the_bold_font/THEBOLDFONT-FREEVERSION.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -450,25 +459,20 @@ nav a:hover {
     position: relative;
     background: linear-gradient(135deg, var(--surface-light) 0%, rgba(255, 228, 1, 0.04) 100%);
     border-bottom: 1px solid var(--tech-border);
-    padding: 3.5rem 1.5rem 3rem;
+    padding: 1.5rem 1.5rem;
     overflow: hidden;
-    align-items: center
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.cta-strip-accent {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 60%, transparent 100%);
-}
+
 .cta-strip-inner {
     max-width: 960px;
     margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 2.5rem;
+    justify-content: center;
+    width: 100%;
 }
 .cta-strip-eyebrow {
     font-size: 0.7rem;
@@ -478,13 +482,20 @@ nav a:hover {
     color: var(--primary);
     margin: 0 0 0.5rem;
 }
+.cta-strip-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
 .cta-strip-text h2 {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 1.65rem;
     font-weight: 800;
     color: var(--text-charcoal);
-    margin: 0 0 0.4rem;
+    margin: 0;
     line-height: 1.2;
+    white-space: nowrap;
 }
 .cta-strip-text p {
     font-size: 0.92rem;
@@ -495,8 +506,10 @@ nav a:hover {
 }
 .cta-strip-buttons {
     display: flex;
-    gap: 14px;
+    gap: 20px;
     flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
 }
 .cta-strip-btn {
     display: inline-flex;
@@ -513,6 +526,28 @@ nav a:hover {
     transition: all 0.3s ease;
     white-space: nowrap;
     border-radius: 2px;
+    background: #fff;
+    color: #000;
+    border: 2px solid #fff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+.cta-contact-btn {
+    background: #fff;
+    color: #000;
+}
+.cta-contact-btn:hover {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    background: #f5f5f5;
+}
+.cta-register-btn {
+    background: #fff;
+    color: #000;
+}
+.cta-register-btn:hover {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    background: #f5f5f5;
 }
 .cta-strip-enquire {
     border: 2px solid var(--primary);
@@ -535,21 +570,28 @@ nav a:hover {
     transform: translateY(-2px);
 }
 @media (max-width: 768px) {
-    .cta-strip { padding: 2.25rem 1.25rem 2rem; }
+    .cta-strip { padding: 1.25rem 1rem; }
     .cta-strip-inner {
-        flex-direction: column;
-        text-align: center;
-    }
-    .cta-strip-text h2 { font-size: 1.35rem; }
-    .cta-strip-buttons {
-        width: 100%;
         flex-direction: row;
+        text-align: center;
+        gap: 1.5rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .cta-strip-text h2 { 
+        font-size: 1.25rem;
+        white-space: nowrap;
+    }
+    .cta-strip-buttons {
+        flex-direction: row;
+        justify-content: center;
+        gap: 12px;
+        margin: 0;
     }
     .cta-strip-btn {
-        justify-content: center;
-        flex: 1;
-        padding: 13px 10px;
-        font-size: 12px;
+        padding: 12px 18px;
+        font-size: 11px;
+        white-space: nowrap;
     }
 }
 @media (max-width: 380px) {
@@ -579,19 +621,7 @@ nav a:hover {
 }
 
 .hero::after {
-    content: 'KITE H7';
-    position: absolute;
-    right: -3%;
-    bottom: -5%;
-    font-family: 'Orbitron', sans-serif;
-    font-size: clamp(200px, 30vw, 400px);
-    font-weight: 900;
-    color: rgba(0, 0, 0, 0.08);
-    letter-spacing: -8px;
-    pointer-events: none;
-    white-space: nowrap;
-    line-height: 1;
-    z-index: 0;
+    display: none;
 }
 
 .hero-inner {
@@ -610,6 +640,7 @@ nav a:hover {
     text-transform: uppercase;
     margin-bottom: 1rem;
     font-weight: 500;
+    opacity: 60%;
 }
 
 .hero-title {
@@ -618,6 +649,7 @@ nav a:hover {
     text-transform: uppercase;
     color: #1a1a1a;
     margin-bottom: 1.5rem;
+    
 }
 
 .hero-title .l1 {
@@ -631,9 +663,12 @@ nav a:hover {
 
 .hero-title .l2 {
     display: block;
+    font-family: 'bebas neue',sans-serif;
     font-size: clamp(2.5rem, 8vw, 4rem);
     font-weight: 900;
-    letter-spacing: -0.02em;
+    letter-spacing: 0.05em;
+    font-style: bold, italic;
+    
 }
 
 .hero-title .l3 {
@@ -649,6 +684,7 @@ nav a:hover {
     font-size: clamp(1.5rem, 4vw, 2.75rem);
     font-weight: 900;
     letter-spacing: 0.02em;
+    opacity: 70%;
 }
 
 .hero-tagline {
@@ -843,7 +879,7 @@ nav a:hover {
     }
 
     .hero-title .l2 {
-        font-size: clamp(1.8rem, 6vw, 2.5rem);
+        font-size: clamp(1.2rem, 6vw, 4.5rem);
     }
 
     .hero-title .l3 {
@@ -851,11 +887,33 @@ nav a:hover {
     }
 
     .hero-tiers {
-        flex-direction: column;
+        gap: 0.35rem;
+        flex-wrap: nowrap;
     }
 
     .ctier {
-        min-width: unset;
+        flex: 1;
+        min-width: 0;
+        padding: 0.65rem 0.8rem;
+    }
+
+    .ct-num {
+        font-size: 0.6rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .ct-name {
+        font-size: 0.75rem;
+        margin-bottom: 0.3rem;
+        line-height: 1.05;
+    }
+
+    .ct-price {
+        font-size: 0.85rem;
+    }
+
+    .ct-gst {
+        font-size: 0.65rem;
     }
 
     .why-row {
@@ -1000,6 +1058,10 @@ nav a:hover {
 
     .feature-split-desc {
         font-size: 0.95rem;
+    }
+
+    .feature-split-list {
+        display: none;
     }
 }
 
@@ -1564,6 +1626,7 @@ footer {
     border-bottom: 1px solid var(--tech-border);
     cursor: grab;
     user-select: none;
+    max-height: 550px;
 }
 
 .hero-carousel:active {
@@ -1742,6 +1805,10 @@ footer {
 
     .hero-slide-dark-inner h2 {
         font-size: 1.6rem;
+    }
+
+    .hero-carousel {
+        max-height: 400px;
     }
 }
 
